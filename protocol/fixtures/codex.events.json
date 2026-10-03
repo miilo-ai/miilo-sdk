@@ -1,0 +1,14 @@
+[
+  {
+    "protocolVersion": "0.1",
+    "eventId": "codex-event-42",
+    "cursor": "codex:42",
+    "providerId": "codex-local",
+    "occurredAt": "2026-10-03T05:59:55Z",
+    "kind": "activity",
+    "subject": {"kind": "attempt", "id": "turn-3"},
+    "summary": "Codex is editing the conformance suite.",
+    "payload": {"activityKind": "agent_progress"},
+    "extensions": {"dev.miilo.codex": {"sourceEvent": "item/agentMessage/delta"}}
+  }
+]

@@ -1,0 +1,108 @@
+{
+  "protocolVersion": "0.1",
+  "snapshotId": "factory-snapshot-17",
+  "observedAt": "2026-10-03T06:00:00Z",
+  "cursor": "factory:17",
+  "providers": [{
+    "id": "factory-local",
+    "name": "Private automation factory",
+    "kind": "automation_factory",
+    "health": "healthy",
+    "nativeUrl": "https://factory.example.test/",
+    "capabilities": {
+      "observe": ["tasks", "attempts", "activity", "artifacts", "evidence", "actors", "attention"],
+      "control": ["send_guidance", "pause", "resume", "approve", "reject"],
+      "features": {"planning": true, "verification": true, "promotion": true, "liveActivity": true}
+    },
+    "extensions": {"dev.miilo.fixture": {"synthetic": true}}
+  }],
+  "workItems": [{
+    "id": "task-factory-1",
+    "providerId": "factory-local",
+    "workspaceId": "workspace-lab",
+    "kind": "task",
+    "title": "Add worker telemetry freshness",
+    "summary": "A bounded implementation candidate passed independent verification and awaits approval.",
+    "lifecycle": "waiting",
+    "phase": "reviewing",
+    "attention": "approval",
+    "health": "healthy",
+    "providerState": "verified_pending_review",
+    "revision": "candidate:abc123",
+    "dependencyIds": [],
+    "actions": [{
+      "id": "approve",
+      "label": "Approve candidate",
+      "risk": "privileged",
+      "confirmation": "explicit",
+      "requiredScopes": ["task.review"],
+      "available": true,
+      "idempotent": true,
+      "inputSchema": {"type": "object", "additionalProperties": false}
+    }],
+    "nativeUrl": "https://factory.example.test/tasks/task-factory-1",
+    "updatedAt": "2026-10-03T05:59:30Z",
+    "extensions": {"dev.miilo.fixture": {"synthetic": true}}
+  }],
+  "actors": [{
+    "id": "worker-factory-1",
+    "providerId": "factory-local",
+    "kind": "worker",
+    "name": "Linux coding worker",
+    "health": "healthy",
+    "status": "idle",
+    "capabilities": ["linux", "git", "isolated_execution"],
+    "updatedAt": "2026-10-03T05:59:50Z"
+  }],
+  "attempts": [{
+    "id": "attempt-factory-1",
+    "providerId": "factory-local",
+    "taskId": "task-factory-1",
+    "sequence": 1,
+    "lifecycle": "complete",
+    "phase": "verifying",
+    "actorIds": ["worker-factory-1"],
+    "startedAt": "2026-10-03T05:55:00Z",
+    "completedAt": "2026-10-03T05:59:20Z",
+    "summary": "Candidate and registered verifier completed successfully."
+  }],
+  "artifacts": [{
+    "id": "artifact-factory-change-1",
+    "providerId": "factory-local",
+    "attemptId": "attempt-factory-1",
+    "kind": "change_set",
+    "name": "Bounded source changes",
+    "mediaType": "text/x-diff",
+    "digest": "sha256:abc123",
+    "uri": "https://factory.example.test/artifacts/artifact-factory-change-1",
+    "createdAt": "2026-10-03T05:59:10Z"
+  }],
+  "evidence": [{
+    "id": "evidence-factory-1",
+    "providerId": "factory-local",
+    "attemptId": "attempt-factory-1",
+    "kind": "test",
+    "outcome": "passed",
+    "summary": "The registered independent verifier passed.",
+    "recordedAt": "2026-10-03T05:59:20Z",
+    "artifactIds": ["artifact-factory-change-1"]
+  }],
+  "attention": [{
+    "id": "attention-factory-1",
+    "providerId": "factory-local",
+    "subject": {"kind": "task", "id": "task-factory-1"},
+    "level": "approval",
+    "reason": "verified_candidate",
+    "message": "A verified candidate is ready for review.",
+    "createdAt": "2026-10-03T05:59:30Z",
+    "actions": [{
+      "id": "approve",
+      "label": "Approve candidate",
+      "risk": "privileged",
+      "confirmation": "explicit",
+      "requiredScopes": ["task.review"],
+      "available": true,
+      "idempotent": true
+    }]
+  }]
+}

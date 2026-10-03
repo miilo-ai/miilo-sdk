@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miilo.dev/protocol/v0.1/action-invocation.schema.json",
+  "title": "Miilo Action Invocation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocolVersion", "requestId", "providerId", "actionId", "subject", "expectedRevision", "confirmation", "input"],
+  "properties": {
+    "protocolVersion": {"const": "0.1"},
+    "requestId": {"type": "string", "minLength": 1, "maxLength": 200},
+    "providerId": {"type": "string", "minLength": 1, "maxLength": 200},
+    "actionId": {"type": "string", "minLength": 1, "maxLength": 200},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["provider", "workspace", "initiative", "task", "attempt", "actor", "artifact", "evidence", "attention"]},
+        "id": {"type": "string", "minLength": 1, "maxLength": 200}
+      }
+    },
+    "expectedRevision": {"type": "string", "minLength": 1, "maxLength": 200},
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "confirmedAt"],
+      "properties": {
+        "method": {"enum": ["none", "manual", "voice", "gesture", "strong_auth"]},
+        "confirmedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "input": {"type": "object"},
+    "idempotencyKey": {"type": "string", "minLength": 16, "maxLength": 200}
+  }
+}

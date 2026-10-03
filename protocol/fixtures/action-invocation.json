@@ -1,0 +1,11 @@
+{
+  "protocolVersion": "0.1",
+  "requestId": "request-00000001",
+  "providerId": "codex-local",
+  "actionId": "send_guidance",
+  "subject": {"kind": "task", "id": "thread-42"},
+  "expectedRevision": "turn:3",
+  "confirmation": {"method": "voice", "confirmedAt": "2026-10-03T06:01:00Z"},
+  "input": {"message": "Keep the change limited to the public protocol fixtures."},
+  "idempotencyKey": "miilo-request-00000001"
+}

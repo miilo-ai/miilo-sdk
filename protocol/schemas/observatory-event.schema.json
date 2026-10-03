@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miilo.dev/protocol/v0.1/observatory-event.schema.json",
+  "title": "Miilo Observatory Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocolVersion", "eventId", "cursor", "providerId", "occurredAt", "kind", "subject", "summary", "payload"],
+  "properties": {
+    "protocolVersion": {"const": "0.1"},
+    "eventId": {"type": "string", "minLength": 1, "maxLength": 200},
+    "cursor": {"type": "string", "minLength": 1, "maxLength": 512},
+    "providerId": {"type": "string", "minLength": 1, "maxLength": 200},
+    "occurredAt": {"type": "string", "format": "date-time"},
+    "kind": {"enum": ["created", "updated", "activity", "artifact", "evidence", "attention", "action", "deleted", "heartbeat"]},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["provider", "workspace", "initiative", "task", "attempt", "actor", "artifact", "evidence", "attention"]},
+        "id": {"type": "string", "minLength": 1, "maxLength": 200}
+      }
+    },
+    "summary": {"type": "string", "minLength": 1, "maxLength": 500},
+    "payload": {"type": "object"},
+    "extensions": {"type": "object", "additionalProperties": true}
+  }
+}

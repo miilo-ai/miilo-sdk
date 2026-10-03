@@ -1,0 +1,13 @@
+[
+  {
+    "protocolVersion": "0.1",
+    "eventId": "factory-event-17",
+    "cursor": "factory:17",
+    "providerId": "factory-local",
+    "occurredAt": "2026-10-03T05:59:30Z",
+    "kind": "attention",
+    "subject": {"kind": "task", "id": "task-factory-1"},
+    "summary": "Verified candidate is ready for review.",
+    "payload": {"attentionId": "attention-factory-1"}
+  }
+]

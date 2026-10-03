@@ -1,0 +1,11 @@
+{
+  "protocolVersion": "0.1",
+  "requestId": "request-00000001",
+  "providerId": "codex-local",
+  "actionId": "send_guidance",
+  "status": "accepted",
+  "recordedAt": "2026-10-03T06:01:01Z",
+  "providerState": "running",
+  "message": "Guidance was delivered to the active task.",
+  "nativeUrl": "https://codex.example.test/tasks/thread-42"
+}

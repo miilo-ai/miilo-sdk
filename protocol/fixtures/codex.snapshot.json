@@ -1,0 +1,79 @@
+{
+  "protocolVersion": "0.1",
+  "snapshotId": "codex-snapshot-42",
+  "observedAt": "2026-10-03T06:00:00Z",
+  "cursor": "codex:42",
+  "providers": [{
+    "id": "codex-local",
+    "name": "Codex",
+    "kind": "agent_harness",
+    "health": "healthy",
+    "nativeUrl": "https://codex.example.test/tasks/thread-42",
+    "capabilities": {
+      "observe": ["tasks", "attempts", "activity", "artifacts", "attention"],
+      "control": ["send_guidance", "interrupt", "open_native"],
+      "features": {"planning": true, "verification": false, "promotion": false, "liveActivity": true}
+    },
+    "extensions": {"dev.miilo.fixture": {"synthetic": true}}
+  }],
+  "workItems": [{
+    "id": "thread-42",
+    "providerId": "codex-local",
+    "workspaceId": "workspace-sdk",
+    "kind": "task",
+    "title": "Define adapter conformance cases",
+    "summary": "Codex is implementing a focused protocol test change.",
+    "lifecycle": "active",
+    "phase": "implementing",
+    "attention": "none",
+    "health": "healthy",
+    "providerState": "running",
+    "revision": "turn:3",
+    "dependencyIds": [],
+    "actions": [{
+      "id": "send_guidance",
+      "label": "Send guidance",
+      "risk": "bounded",
+      "confirmation": "explicit",
+      "requiredScopes": ["task.write"],
+      "available": true,
+      "idempotent": false,
+      "inputSchema": {"type": "object", "required": ["message"], "properties": {"message": {"type": "string"}}}
+    }, {
+      "id": "interrupt",
+      "label": "Interrupt task",
+      "risk": "privileged",
+      "confirmation": "explicit",
+      "requiredScopes": ["task.interrupt"],
+      "available": true,
+      "idempotent": true
+    }],
+    "nativeUrl": "https://codex.example.test/tasks/thread-42",
+    "updatedAt": "2026-10-03T05:59:55Z",
+    "extensions": {"dev.miilo.codex": {"turnId": "turn-3"}}
+  }],
+  "actors": [{
+    "id": "agent-codex-1",
+    "providerId": "codex-local",
+    "kind": "agent",
+    "name": "Codex coding agent",
+    "health": "healthy",
+    "status": "working",
+    "capabilities": ["code", "analysis", "tools"],
+    "updatedAt": "2026-10-03T05:59:55Z"
+  }],
+  "attempts": [{
+    "id": "turn-3",
+    "providerId": "codex-local",
+    "taskId": "thread-42",
+    "sequence": 3,
+    "lifecycle": "active",
+    "phase": "implementing",
+    "actorIds": ["agent-codex-1"],
+    "startedAt": "2026-10-03T05:58:00Z",
+    "summary": "Editing the protocol conformance suite."
+  }],
+  "artifacts": [],
+  "evidence": [],
+  "attention": []
+}
