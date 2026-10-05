@@ -16,6 +16,12 @@ Provider-specific values belong in `extensions`, under a reverse-domain or other
 globally unique key. Normalized fields drive Miilo presentation. `providerState`
 preserves the exact source state for diagnostics.
 
+Providers may advertise `capabilities.speech`. Speech remains provider-owned:
+Example Lab, OpenAI, or another connected system can supply transcription,
+synthesis, and complete voice turns without exposing internal model names or
+credentials to Miilo clients. Any action proposed during a voice turn still
+uses the normal action contract and confirmation policy.
+
 ## Compatibility
 
 - `protocolVersion` uses major/minor form. Consumers must reject an unsupported major.

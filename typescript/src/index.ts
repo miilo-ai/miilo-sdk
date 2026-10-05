@@ -8,8 +8,13 @@ export type SubjectKind = "provider" | "workspace" | "initiative" | "task" | "at
 export type Extensions = Readonly<Record<string, unknown>>;
 
 export interface SubjectReference { kind: SubjectKind; id: string }
-export interface ProviderCapabilities { observe: readonly string[]; control: readonly string[]; features: Readonly<Record<string, boolean>> }
+export type SpeechMode = "transcription" | "synthesis" | "voice_turn" | "realtime_transcription";
+export interface SpeechVoice { id: string; name: string; language: string }
+export interface VoiceActivityDetection { required: boolean; silenceMs: number; maxUtteranceMs: number }
+export interface SpeechCapabilities { modes: readonly SpeechMode[]; languages: readonly string[]; voices: readonly SpeechVoice[]; inputFormats: readonly string[]; outputFormats: readonly string[]; supportsBargeIn: boolean; actionsRequireConfirmation: boolean; voiceActivityDetection: VoiceActivityDetection }
+export interface ProviderCapabilities { observe: readonly string[]; control: readonly string[]; features: Readonly<Record<string, boolean>>; speech?: SpeechCapabilities }
 export interface ProviderDescriptor { id: string; name: string; kind: "agent_harness" | "automation_factory" | "ci_cd" | "research" | "custom"; health: Health; nativeUrl?: string; capabilities: ProviderCapabilities; extensions?: Extensions }
+export interface VoiceTurnResult { protocolVersion: typeof MIILO_PROTOCOL_VERSION; providerId: string; transcript: string; reply: string; intent: string; actionProposed: boolean; confirmationRequired: boolean; audioMediaType?: string; audioBase64?: string; extensions?: Extensions }
 export interface AvailableAction { id: string; label: string; risk: "read" | "bounded" | "privileged" | "destructive"; confirmation: "none" | "explicit" | "strong"; requiredScopes: readonly string[]; available: boolean; unavailableReason?: string; expiresAt?: string; idempotent: boolean; inputSchema?: Readonly<Record<string, unknown>>; nativeUrl?: string }
 export interface WorkItem { id: string; providerId: string; workspaceId?: string; parentId?: string; kind: "initiative" | "task"; title: string; summary: string; lifecycle: Lifecycle; phase: Phase; attention: AttentionLevel; health: Health; providerState: string; revision: string; dependencyIds: readonly string[]; actions: readonly AvailableAction[]; nativeUrl?: string; updatedAt: string; extensions?: Extensions }
 export interface Actor { id: string; providerId: string; kind: "human" | "agent" | "worker" | "verifier" | "service"; name: string; health: Health; status: string; capabilities: readonly string[]; updatedAt?: string; extensions?: Extensions }

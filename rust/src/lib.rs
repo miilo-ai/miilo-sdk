@@ -70,6 +70,61 @@ pub struct ProviderCapabilities {
     pub observe: Vec<String>,
     pub control: Vec<String>,
     pub features: BTreeMap<String, bool>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub speech: Option<SpeechCapabilities>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "snake_case")]
+pub enum SpeechMode {
+    Transcription,
+    Synthesis,
+    VoiceTurn,
+    RealtimeTranscription,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeechVoice {
+    pub id: String,
+    pub name: String,
+    pub language: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeechCapabilities {
+    pub modes: Vec<SpeechMode>,
+    pub languages: Vec<String>,
+    pub voices: Vec<SpeechVoice>,
+    pub input_formats: Vec<String>,
+    pub output_formats: Vec<String>,
+    pub supports_barge_in: bool,
+    pub actions_require_confirmation: bool,
+    pub voice_activity_detection: VoiceActivityDetection,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VoiceActivityDetection {
+    pub required: bool,
+    pub silence_ms: u32,
+    pub max_utterance_ms: u32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VoiceTurnResult {
+    pub protocol_version: String,
+    pub provider_id: String,
+    pub transcript: String,
+    pub reply: String,
+    pub intent: String,
+    pub action_proposed: bool,
+    pub confirmation_required: bool,
+    pub audio_media_type: Option<String>,
+    pub audio_base64: Option<String>,
+    pub extensions: Option<Extensions>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
