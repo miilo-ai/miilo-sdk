@@ -14,10 +14,117 @@ class SubjectReference(Contract):
     kind: Literal['provider','workspace','initiative','task','attempt','actor','artifact','evidence','attention']
     id: str
 
+class VoiceActivityDetection(Contract):
+    required: bool
+    silence_ms: int
+    max_utterance_ms: int
+
+class SpeechVoice(Contract):
+    id: str
+    name: str
+    language: str
+
+class SpeechCapabilities(Contract):
+    modes: list[Literal['transcription','synthesis','voice_turn','realtime_transcription']]
+    languages: list[str]
+    voices: list[SpeechVoice]
+    input_formats: list[str]
+    output_formats: list[str]
+    supports_barge_in: bool
+    actions_require_confirmation: bool
+    voice_activity_detection: VoiceActivityDetection
+
+class ModelRoute(Contract):
+    role: Literal['transcription','reasoning','vision','synthesis','embedding','search','specialist']
+    logical_name: str
+    input_modalities: list[str]
+    output_modalities: list[str]
+    specialization: str | None = None
+
+class VoiceCandidate(Contract):
+    id: str
+    provider_id: str
+    title: str
+    score: float
+
+class VoiceActionProposal(Contract):
+    provider_id: str
+    work_item_id: str
+    expected_revision: str
+    action_id: str
+    action_label: str
+    confirmation: Literal['none','explicit','strong']
+    risk: Literal['read','bounded','privileged','destructive']
+    input: dict[str, Any] = Field(default_factory=dict)
+
+class VoiceUnderstanding(Contract):
+    intent: str
+    status: Literal['resolved','ambiguous','unresolved']
+    candidates: list[VoiceCandidate]
+    proposed_action: VoiceActionProposal | None = None
+
+class VoiceTurnResult(Contract):
+    protocol_version: Literal['0.1']
+    provider_id: str
+    transcript: str
+    reply: str
+    intent: str
+    action_proposed: bool
+    confirmation_required: bool
+    audio_media_type: str | None = None
+    audio_base64: str | None = None
+    understanding: VoiceUnderstanding | None = None
+    extensions: Extensions | None = None
+
+class VoiceTextTurnRequest(Contract):
+    protocol_version: Literal['0.1'] = '0.1'
+    text: str
+    locale: str | None = None
+
+class VoiceTranscriptEvent(Contract):
+    type: Literal['transcript']
+    protocol_version: Literal['0.1'] = '0.1'
+    sequence: int | None = None
+    text: str
+
+class VoiceTextDeltaEvent(Contract):
+    type: Literal['text_delta']
+    protocol_version: Literal['0.1'] = '0.1'
+    sequence: int | None = None
+    text: str
+
+class VoiceAudioEvent(Contract):
+    type: Literal['audio']
+    protocol_version: Literal['0.1'] = '0.1'
+    sequence: int | None = None
+    text: str
+    media_type: str
+    audio_base64: str
+
+class VoiceDoneEvent(Contract):
+    type: Literal['done']
+    protocol_version: Literal['0.1'] = '0.1'
+    sequence: int | None = None
+    reply: str
+    intent: str
+    action_proposed: bool
+    confirmation_required: bool
+    understanding: VoiceUnderstanding | None = None
+
+class VoiceErrorEvent(Contract):
+    type: Literal['error']
+    protocol_version: Literal['0.1'] = '0.1'
+    sequence: int | None = None
+    message: str
+
+VoiceStreamEvent = VoiceTranscriptEvent | VoiceTextDeltaEvent | VoiceAudioEvent | VoiceDoneEvent | VoiceErrorEvent
+
 class ProviderCapabilities(Contract):
     observe: list[str]
     control: list[str]
     features: dict[str, bool]
+    speech: SpeechCapabilities | None = None
+    model_routes: list[ModelRoute] = Field(default_factory=list)
 
 class ProviderDescriptor(Contract):
     id: str

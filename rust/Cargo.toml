@@ -3,7 +3,12 @@ name = "miilo-adapter-sdk"
 version = "0.1.0"
 edition = "2024"
 description = "Typed Rust contracts for the Miilo adapter protocol"
-publish = false
+license = "Apache-2.0"
+repository = "https://github.com/miilo-ai/miilo-sdk"
+homepage = "https://miilo.tech"
+readme = "README.md"
+keywords = ["agents", "automation", "observability", "protocol"]
+categories = ["api-bindings", "development-tools"]
 
 [dependencies]
 async-trait = "0.1"

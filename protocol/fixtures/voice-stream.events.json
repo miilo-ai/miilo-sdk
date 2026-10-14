@@ -1,0 +1,7 @@
+[
+  {"protocolVersion":"0.1","sequence":0,"type":"transcript","text":"What needs my attention?"},
+  {"protocolVersion":"0.1","sequence":1,"type":"text_delta","text":"One item "},
+  {"protocolVersion":"0.1","sequence":2,"type":"text_delta","text":"needs your review."},
+  {"protocolVersion":"0.1","sequence":3,"type":"audio","text":"One item needs your review.","mediaType":"audio/wav","audioBase64":"UklGRg=="},
+  {"protocolVersion":"0.1","sequence":4,"type":"done","reply":"One item needs your review.","intent":"work.attention","actionProposed":false,"confirmationRequired":false,"understanding":{"intent":"work.attention","status":"resolved","candidates":[{"id":"task-factory-1","providerId":"factory-local","title":"Review candidate","score":1.0}]}}
+]

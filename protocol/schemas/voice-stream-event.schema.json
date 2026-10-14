@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miilo.dev/schemas/voice-stream-event.schema.json",
+  "title": "Miilo provider voice stream event",
+  "oneOf": [
+    {"$ref": "#/$defs/transcript"},
+    {"$ref": "#/$defs/textDelta"},
+    {"$ref": "#/$defs/audio"},
+    {"$ref": "#/$defs/done"},
+    {"$ref": "#/$defs/error"}
+  ],
+  "$defs": {
+    "common": {
+      "type": "object",
+      "properties": {
+        "protocolVersion": {"const": "0.1"},
+        "sequence": {"type": "integer", "minimum": 0}
+      }
+    },
+    "transcript": {
+      "type": "object", "additionalProperties": false, "required": ["type", "text"],
+      "properties": {"type": {"const": "transcript"}, "text": {"type": "string", "maxLength": 20000}, "protocolVersion": {"const": "0.1"}, "sequence": {"type": "integer", "minimum": 0}}
+    },
+    "textDelta": {
+      "type": "object", "additionalProperties": false, "required": ["type", "text"],
+      "properties": {"type": {"const": "text_delta"}, "text": {"type": "string", "minLength": 1, "maxLength": 10000}, "protocolVersion": {"const": "0.1"}, "sequence": {"type": "integer", "minimum": 0}}
+    },
+    "audio": {
+      "type": "object", "additionalProperties": false, "required": ["type", "text", "mediaType", "audioBase64"],
+      "properties": {"type": {"const": "audio"}, "text": {"type": "string", "maxLength": 10000}, "mediaType": {"type": "string", "minLength": 1, "maxLength": 160}, "audioBase64": {"type": "string", "minLength": 1, "maxLength": 8388608}, "protocolVersion": {"const": "0.1"}, "sequence": {"type": "integer", "minimum": 0}}
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false, "required": ["id", "providerId", "title", "score"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "providerId": {"type": "string", "minLength": 1}, "title": {"type": "string", "minLength": 1}, "score": {"type": "number", "minimum": 0, "maximum": 1}}
+    },
+    "proposal": {
+      "type": "object", "additionalProperties": false, "required": ["providerId", "workItemId", "expectedRevision", "actionId", "actionLabel", "confirmation", "risk"],
+      "properties": {"providerId": {"type": "string", "minLength": 1}, "workItemId": {"type": "string", "minLength": 1}, "expectedRevision": {"type": "string", "minLength": 1}, "actionId": {"type": "string", "minLength": 1}, "actionLabel": {"type": "string", "minLength": 1}, "confirmation": {"enum": ["none", "explicit", "strong"]}, "risk": {"enum": ["read", "bounded", "privileged", "destructive"]}, "input": {"type": "object"}}
+    },
+    "understanding": {
+      "type": "object", "additionalProperties": false, "required": ["intent", "status", "candidates"],
+      "properties": {"intent": {"type": "string", "minLength": 1}, "status": {"enum": ["resolved", "ambiguous", "unresolved"]}, "candidates": {"type": "array", "maxItems": 20, "items": {"$ref": "#/$defs/candidate"}}, "proposedAction": {"$ref": "#/$defs/proposal"}}
+    },
+    "done": {
+      "type": "object", "additionalProperties": false, "required": ["type", "reply", "intent", "actionProposed", "confirmationRequired"],
+      "properties": {"type": {"const": "done"}, "reply": {"type": "string", "maxLength": 40000}, "intent": {"type": "string", "minLength": 1}, "actionProposed": {"type": "boolean"}, "confirmationRequired": {"type": "boolean"}, "understanding": {"$ref": "#/$defs/understanding"}, "protocolVersion": {"const": "0.1"}, "sequence": {"type": "integer", "minimum": 0}}
+    },
+    "error": {
+      "type": "object", "additionalProperties": false, "required": ["type", "message"],
+      "properties": {"type": {"const": "error"}, "message": {"type": "string", "minLength": 1, "maxLength": 1000}, "protocolVersion": {"const": "0.1"}, "sequence": {"type": "integer", "minimum": 0}}
+    }
+  }
+}

@@ -4,6 +4,13 @@ version = "0.1.0"
 description = "Typed Python contracts for the Miilo adapter protocol"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2.12,<3"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://miilo.tech"
+Repository = "https://github.com/miilo-ai/miilo-sdk"
+Issues = "https://github.com/miilo-ai/miilo-sdk/issues"
 
 [dependency-groups]
 dev = ["pytest>=8,<10"]

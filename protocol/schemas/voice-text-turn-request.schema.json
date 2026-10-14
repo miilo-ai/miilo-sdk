@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://miilo.dev/schemas/voice-text-turn-request.schema.json",
+  "title": "Miilo provider text-originated voice turn",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocolVersion", "text"],
+  "properties": {
+    "protocolVersion": {"const": "0.1"},
+    "text": {"type": "string", "minLength": 1, "maxLength": 20000},
+    "locale": {"type": "string", "minLength": 2, "maxLength": 64}
+  }
+}

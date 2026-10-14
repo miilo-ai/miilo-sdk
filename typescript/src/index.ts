@@ -12,9 +12,21 @@ export type SpeechMode = "transcription" | "synthesis" | "voice_turn" | "realtim
 export interface SpeechVoice { id: string; name: string; language: string }
 export interface VoiceActivityDetection { required: boolean; silenceMs: number; maxUtteranceMs: number }
 export interface SpeechCapabilities { modes: readonly SpeechMode[]; languages: readonly string[]; voices: readonly SpeechVoice[]; inputFormats: readonly string[]; outputFormats: readonly string[]; supportsBargeIn: boolean; actionsRequireConfirmation: boolean; voiceActivityDetection: VoiceActivityDetection }
-export interface ProviderCapabilities { observe: readonly string[]; control: readonly string[]; features: Readonly<Record<string, boolean>>; speech?: SpeechCapabilities }
+export type ModelRole = "transcription" | "reasoning" | "vision" | "synthesis" | "embedding" | "search" | "specialist";
+export interface ModelRoute { role: ModelRole; logicalName: string; inputModalities: readonly string[]; outputModalities: readonly string[]; specialization?: string }
+export interface ProviderCapabilities { observe: readonly string[]; control: readonly string[]; features: Readonly<Record<string, boolean>>; speech?: SpeechCapabilities; modelRoutes?: readonly ModelRoute[] }
 export interface ProviderDescriptor { id: string; name: string; kind: "agent_harness" | "automation_factory" | "ci_cd" | "research" | "custom"; health: Health; nativeUrl?: string; capabilities: ProviderCapabilities; extensions?: Extensions }
-export interface VoiceTurnResult { protocolVersion: typeof MIILO_PROTOCOL_VERSION; providerId: string; transcript: string; reply: string; intent: string; actionProposed: boolean; confirmationRequired: boolean; audioMediaType?: string; audioBase64?: string; extensions?: Extensions }
+export interface VoiceCandidate { id: string; providerId: string; title: string; score: number }
+export interface VoiceActionProposal { providerId: string; workItemId: string; expectedRevision: string; actionId: string; actionLabel: string; confirmation: "none" | "explicit" | "strong"; risk: "read" | "bounded" | "privileged" | "destructive"; input?: Readonly<Record<string, unknown>> }
+export interface VoiceUnderstanding { intent: string; status: "resolved" | "ambiguous" | "unresolved"; candidates: readonly VoiceCandidate[]; proposedAction?: VoiceActionProposal }
+export interface VoiceTurnResult { protocolVersion: typeof MIILO_PROTOCOL_VERSION; providerId: string; transcript: string; reply: string; intent: string; actionProposed: boolean; confirmationRequired: boolean; audioMediaType?: string; audioBase64?: string; understanding?: VoiceUnderstanding; extensions?: Extensions }
+export interface VoiceTextTurnRequest { protocolVersion: typeof MIILO_PROTOCOL_VERSION; text: string; locale?: string }
+export type VoiceStreamEvent =
+  | { type: "transcript"; protocolVersion?: typeof MIILO_PROTOCOL_VERSION; sequence?: number; text: string }
+  | { type: "text_delta"; protocolVersion?: typeof MIILO_PROTOCOL_VERSION; sequence?: number; text: string }
+  | { type: "audio"; protocolVersion?: typeof MIILO_PROTOCOL_VERSION; sequence?: number; text: string; mediaType: string; audioBase64: string }
+  | { type: "done"; protocolVersion?: typeof MIILO_PROTOCOL_VERSION; sequence?: number; reply: string; intent: string; actionProposed: boolean; confirmationRequired: boolean; understanding?: VoiceUnderstanding }
+  | { type: "error"; protocolVersion?: typeof MIILO_PROTOCOL_VERSION; sequence?: number; message: string };
 export interface AvailableAction { id: string; label: string; risk: "read" | "bounded" | "privileged" | "destructive"; confirmation: "none" | "explicit" | "strong"; requiredScopes: readonly string[]; available: boolean; unavailableReason?: string; expiresAt?: string; idempotent: boolean; inputSchema?: Readonly<Record<string, unknown>>; nativeUrl?: string }
 export interface WorkItem { id: string; providerId: string; workspaceId?: string; parentId?: string; kind: "initiative" | "task"; title: string; summary: string; lifecycle: Lifecycle; phase: Phase; attention: AttentionLevel; health: Health; providerState: string; revision: string; dependencyIds: readonly string[]; actions: readonly AvailableAction[]; nativeUrl?: string; updatedAt: string; extensions?: Extensions }
 export interface Actor { id: string; providerId: string; kind: "human" | "agent" | "worker" | "verifier" | "service"; name: string; health: Health; status: string; capabilities: readonly string[]; updatedAt?: string; extensions?: Extensions }
@@ -32,6 +44,9 @@ export interface MiiloAdapter {
   getSnapshot(cursor?: string): Promise<ObservatorySnapshot>;
   subscribe(cursor?: string, signal?: AbortSignal): AsyncIterable<ObservatoryEvent>;
   invoke(action: ActionInvocation): Promise<ActionResult>;
+  voiceTurn?(audio: Uint8Array, filename: string, contentType: string): Promise<VoiceTurnResult>;
+  voiceTurnStream?(audio: Uint8Array, filename: string, contentType: string, signal?: AbortSignal): AsyncIterable<VoiceStreamEvent>;
+  voiceTextTurnStream?(request: VoiceTextTurnRequest, signal?: AbortSignal): AsyncIterable<VoiceStreamEvent>;
 }
 
 export interface ReadOnlyMiiloAdapter extends Omit<MiiloAdapter, "invoke"> { invoke?: never }

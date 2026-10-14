@@ -11,6 +11,7 @@ automated work and capability-gated actions. It contains no Example Factory type
 - `schemas/observatory-event.schema.json`: ordered, resumable provider events.
 - `schemas/action-invocation.schema.json`: an explicitly confirmed action request.
 - `schemas/action-result.schema.json`: the provider-owned action outcome.
+- Voice action proposals carry `expectedRevision`; clients and the Miilo control plane must bind any confirmation to that exact observed provider state.
 
 Provider-specific values belong in `extensions`, under a reverse-domain or otherwise
 globally unique key. Normalized fields drive Miilo presentation. `providerState`

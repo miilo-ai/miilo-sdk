@@ -33,6 +33,18 @@ def test_provider_snapshots_share_one_contract(name: str) -> None:
     validate("observatory-snapshot.schema.json", load(FIXTURES / name))
 
 
+def test_provider_can_advertise_logical_model_roles_without_physical_endpoints() -> None:
+    snapshot = load(FIXTURES / "factory.snapshot.json")
+    snapshot["providers"][0]["capabilities"]["modelRoutes"] = [{
+        "role": "specialist",
+        "logicalName": "leaf-identifier",
+        "inputModalities": ["image"],
+        "outputModalities": ["text"],
+        "specialization": "regional leaf classification",
+    }]
+    validate("observatory-snapshot.schema.json", snapshot)
+
+
 @pytest.mark.parametrize("name", ["factory.events.json", "codex.events.json"])
 def test_provider_events_share_one_contract(name: str) -> None:
     for event in load(FIXTURES / name):
@@ -122,3 +134,46 @@ def test_duplicate_event_identity_is_provider_scoped() -> None:
     codex["providerId"] = "codex-local"
     identities = {(value["providerId"], value["eventId"]) for value in (factory, codex)}
     assert len(identities) == 2
+
+
+def test_voice_stream_events_are_bounded_ordered_and_terminal() -> None:
+    events = load(FIXTURES / "voice-stream.events.json")
+    for event in events:
+        validate("voice-stream-event.schema.json", event)
+    assert [event["sequence"] for event in events] == list(range(len(events)))
+    assert events[0]["type"] == "transcript"
+    assert events[-1]["type"] == "done"
+
+
+def test_text_originated_voice_turn_is_bounded_and_versioned() -> None:
+    validate(
+        "voice-text-turn-request.schema.json",
+        load(FIXTURES / "voice-text-turn-request.json"),
+    )
+
+
+def test_voice_action_proposals_are_bound_to_an_observed_revision() -> None:
+    event = {
+        "type": "done",
+        "reply": "I can acknowledge that item.",
+        "intent": "work.action",
+        "actionProposed": True,
+        "confirmationRequired": True,
+        "understanding": {
+            "intent": "work.action",
+            "status": "resolved",
+            "candidates": [],
+            "proposedAction": {
+                "providerId": "factory-local",
+                "workItemId": "task-1",
+                "expectedRevision": "revision-7",
+                "actionId": "acknowledge",
+                "actionLabel": "Acknowledge",
+                "confirmation": "explicit",
+                "risk": "read",
+            },
+        },
+    }
+    validate("voice-stream-event.schema.json", event)
+    del event["understanding"]["proposedAction"]["expectedRevision"]
+    assert validation_errors("voice-stream-event.schema.json", event)

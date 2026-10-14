@@ -44,7 +44,20 @@
         "observe": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "control": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "features": {"type": "object", "additionalProperties": {"type": "boolean"}},
-        "speech": {"$ref": "#/$defs/speechCapabilities"}
+        "speech": {"$ref": "#/$defs/speechCapabilities"},
+        "modelRoutes": {"type": "array", "items": {"$ref": "#/$defs/modelRoute"}}
+      }
+    },
+    "modelRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "logicalName", "inputModalities", "outputModalities"],
+      "properties": {
+        "role": {"enum": ["transcription", "reasoning", "vision", "synthesis", "embedding", "search", "specialist"]},
+        "logicalName": {"type": "string", "minLength": 1, "maxLength": 160},
+        "inputModalities": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "outputModalities": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "specialization": {"type": "string", "minLength": 1, "maxLength": 240}
       }
     },
     "speechCapabilities": {
