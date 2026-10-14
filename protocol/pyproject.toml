@@ -4,12 +4,12 @@ version = "0.1.0"
 description = "Provider-neutral contracts and conformance fixtures for Miilo"
 requires-python = ">=3.12"
 dependencies = [
-    "jsonschema==4.25.1",
+    "jsonschema==4.26.0",
 ]
 
 [dependency-groups]
 dev = [
-    "pytest==8.4.1",
+    "pytest==9.1.1",
 ]
 
 [tool.uv]
