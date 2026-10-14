@@ -4,19 +4,19 @@
 
 | Consumer or provider | Snapshot | Events | Actions | Current proof |
 | --- | --- | --- | --- | --- |
-| Recorded Factory adapter | v0.1 | v0.1 | synthetic contract | Conformance Level 0 |
-| Recorded Codex adapter | v0.1 | v0.1 | synthetic contract | Conformance Level 0 |
-| Private Factory normalizer | v0.1 | boundary defined | capability mapping | Unit tested |
-| Public Codex normalizer | v0.1 | boundary defined | guidance/interrupt mapping | Unit tested |
-| Aggregation service | v0.1 | per-connection cursor merge | read-only | Three-connection unit proof |
-| TypeScript SDK | v0.1 | v0.1 | v0.1 | Strict compilation |
-| Unity C# domain | v0.1 core | deferred | policy types | EditMode tested |
+| Recorded Factory fixture | v0.1 | v0.1 | representative action | JSON Schema plus Rust/Python fixture tests |
+| Recorded Codex fixture | v0.1 | v0.1 | representative action | JSON Schema plus Rust/Python fixture tests |
+| Rust SDK | v0.1 | v0.1 | v0.1 | Deserialization, round-trip, adapter trait, and package proof |
+| Python SDK | v0.1 | v0.1 | v0.1 | Strict Pydantic fixtures, adapter protocol, and wheel/sdist proof |
+| TypeScript SDK | v0.1 | v0.1 | v0.1 | Strict contract and adapter surface compilation plus npm package proof |
+| Miilo CLI | v0.1 | resumable SSE | read-only | Rust and Node unit, package, mock, and CE journeys |
+| Miilo CE | v0.1 | replay plus live SSE | validation only | Ingress invariants, provider isolation, explanation, and cross-repository journey |
 
-Consumers reject unsupported protocol versions. A minor release may add optional
-fields and enum values, so client mappings must preserve unknown provider extensions
-and degrade unknown normalized enum values to `unknown` where defined. Breaking field
-or semantic changes require a new major protocol version and parallel serving during
-migration.
+Current consumers require the exact `0.1` wire version and strict normalized fields.
+Provider-specific additive data belongs under the namespaced `extensions` object.
+Adding a normalized field or enum value therefore requires a coordinated protocol
+version and compatibility tests; breaking field or semantic changes require parallel
+serving during migration.
 
 ## Security checklist
 
@@ -32,11 +32,10 @@ migration.
 
 ### Client boundary
 
-- [x] Unity accepts only HTTPS service endpoints.
-- [x] Provider credentials remain outside Unity.
-- [x] The service supports a narrow read bearer credential.
-- [x] Stale fallback removes all available actions and attention prompts.
-- [x] Unreachable state is distinct from fresh empty state.
+- [x] CLI clients reject non-HTTP(S) endpoint schemes.
+- [x] Provider credentials remain outside SDK snapshots and CLI configuration.
+- [x] CE supports an optional bearer boundary for all observation routes.
+- [x] Unreachable provider state is distinct from a fresh empty snapshot.
 - [ ] Device identity and token rotation are configured before live deployment.
 - [ ] Certificate and endpoint policy are validated on target devices.
 
@@ -52,10 +51,10 @@ migration.
 ### Operational boundary
 
 - [x] Provider failure is isolated and surfaced as stale data.
-- [x] At-least-once events are deduplicated by provider and event ID.
+- [x] Event IDs and provider IDs are explicit so consumers can deduplicate at-least-once delivery.
 - [x] Multiple instances of one adapter use distinct connection identities.
 - [x] Public connection inventory excludes secret references and adapter settings.
-- [x] Validation occurs at protocol ingress and aggregate egress.
+- [x] CE validates protocol, ownership, unique IDs, references, revisions, and action confirmation at ingress.
 - [ ] Connection ownership and per-user visibility are enforced.
 - [ ] Add/edit/test/disable/remove operations are audited and revision-bound.
 - [ ] Durable cursor and deduplication storage replaces process memory before deployment.

@@ -1,5 +1,6 @@
 use miilo_adapter_sdk::{
-    MIILO_PROTOCOL_VERSION, ObservatoryEvent, ObservatorySnapshot, VoiceStreamEvent,
+    ActionInvocation, ActionResult, MIILO_PROTOCOL_VERSION, ObservatoryEvent, ObservatorySnapshot,
+    VoiceStreamEvent, VoiceTextTurnRequest,
 };
 use serde_json::json;
 use std::{fs, path::PathBuf};
@@ -64,4 +65,26 @@ fn voice_stream_fixture_is_typed_and_terminal() {
         Some(VoiceStreamEvent::Transcript { .. })
     ));
     assert!(matches!(events.last(), Some(VoiceStreamEvent::Done { .. })));
+}
+
+#[test]
+fn action_and_voice_request_fixtures_are_typed_and_round_trip() {
+    let invocation: ActionInvocation = serde_json::from_str(
+        &fs::read_to_string(fixtures().join("action-invocation.json")).unwrap(),
+    )
+    .unwrap();
+    let result: ActionResult =
+        serde_json::from_str(&fs::read_to_string(fixtures().join("action-result.json")).unwrap())
+            .unwrap();
+    let request: VoiceTextTurnRequest = serde_json::from_str(
+        &fs::read_to_string(fixtures().join("voice-text-turn-request.json")).unwrap(),
+    )
+    .unwrap();
+
+    assert_eq!(invocation.request_id, result.request_id);
+    assert!(!invocation.expected_revision.is_empty());
+    assert_eq!(request.protocol_version, MIILO_PROTOCOL_VERSION);
+    let expected_revision = invocation.expected_revision.clone();
+    let encoded = serde_json::to_value(invocation).unwrap();
+    assert_eq!(encoded["expectedRevision"], expected_revision);
 }

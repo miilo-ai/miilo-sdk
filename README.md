@@ -64,9 +64,10 @@ tests agree.
 
 ## Compatibility
 
-The wire protocol has its own semantic version. Optional fields and capabilities
-may be added in a minor release. Removing a field, changing its meaning, or making
-an optional field required needs a protocol major version.
+The wire protocol is versioned independently from package releases. Current v0.1
+consumers are strict: provider-specific additions belong under `extensions`, while
+normalized field or enum changes require a coordinated protocol version and
+compatibility tests. Breaking semantics require parallel serving during migration.
 
 Read [`docs/compatibility-security.md`](docs/compatibility-security.md) before
 exposing actions or voice proposals.
