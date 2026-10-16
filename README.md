@@ -80,3 +80,7 @@ TypeScript tarball, protocol bundle, checksums, and provenance into a GitHub
 Release. Registry publishing remains a separate, deliberate decision.
 
 Apache-2.0. The license does not grant rights to the Miilo name or marks.
+
+## Release automation
+
+See [.github/RELEASING.md](.github/RELEASING.md) for private-repository rehearsals, manifest-driven tags, credential-missing skips and activation. Publication stays disabled until explicitly requested/configured.
