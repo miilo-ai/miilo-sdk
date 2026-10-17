@@ -1,0 +1,10 @@
+{
+  "protocolVersion": "0.1",
+  "requestId": "turn-example",
+  "text": "Why does this workflow need me?",
+  "focus": {
+    "workKey": "work-example",
+    "revisionKey": "revision-example"
+  },
+  "history": []
+}

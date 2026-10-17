@@ -50,3 +50,5 @@ export interface MiiloAdapter {
 }
 
 export interface ReadOnlyMiiloAdapter extends Omit<MiiloAdapter, "invoke"> { invoke?: never }
+
+export type { ChatFocus, ChatMessage, ChatRequest, ChatReference, ChatEvent } from "./chat.js";

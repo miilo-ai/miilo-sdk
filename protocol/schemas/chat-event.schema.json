@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "sequence",
+        "type",
+        "status",
+        "references",
+        "omitted"
+      ],
+      "properties": {
+        "protocolVersion": {
+          "const": "0.1"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "type": {
+          "const": "context"
+        },
+        "status": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "workKey",
+              "revisionKey",
+              "title"
+            ],
+            "properties": {
+              "workKey": {
+                "type": "string"
+              },
+              "revisionKey": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "omitted": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "sequence",
+        "type",
+        "text"
+      ],
+      "properties": {
+        "protocolVersion": {
+          "const": "0.1"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "type": {
+          "const": "text_delta"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "sequence",
+        "type"
+      ],
+      "properties": {
+        "protocolVersion": {
+          "const": "0.1"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "type": {
+          "const": "done"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "sequence",
+        "type",
+        "code",
+        "message"
+      ],
+      "properties": {
+        "protocolVersion": {
+          "const": "0.1"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "type": {
+          "const": "error"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}
