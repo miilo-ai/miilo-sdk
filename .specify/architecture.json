@@ -1,0 +1,19 @@
+{
+  "layers": [
+    {
+      "name": "runtime",
+      "paths": [
+        "rust/src/runtime/**/*.rs"
+      ],
+      "forbid": [
+        "\\b(?:axum|reqwest|sqlx|notify|tempfile)::",
+        "std::(?:fs|net|process|thread)",
+        "\\bSystemTime\\b",
+        "Utc::now\\(",
+        "crate::(?:adapters|config|engine|transport)::",
+        "\\buse\\s+super::\\*"
+      ]
+    }
+  ],
+  "existingSizeExceptions": {}
+}
