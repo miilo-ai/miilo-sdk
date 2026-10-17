@@ -52,3 +52,5 @@ export interface MiiloAdapter {
 export interface ReadOnlyMiiloAdapter extends Omit<MiiloAdapter, "invoke"> { invoke?: never }
 
 export type { ChatFocus, ChatMessage, ChatRequest, ChatReference, ChatEvent } from "./chat.js";
+
+export type { CompressionCodec, CompressionLimits, BundleManifest, LosslessCodecPort } from "./compression.js";

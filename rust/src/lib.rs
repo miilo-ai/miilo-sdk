@@ -20,3 +20,6 @@ pub mod runtime;
 
 #[cfg(feature = "runtime")]
 mod adapters;
+
+/// Lossless bundle contracts and optional I/O codec adapters.
+pub mod compression;

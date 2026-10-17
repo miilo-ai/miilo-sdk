@@ -12,6 +12,9 @@ Homepage = "https://miilo.tech"
 Repository = "https://github.com/miilo-ai/miilo-sdk"
 Issues = "https://github.com/miilo-ai/miilo-sdk/issues"
 
+[project.optional-dependencies]
+compression = ["brotli>=1.2,<2", "zstandard>=0.25,<1"]
+
 [dependency-groups]
 dev = ["pytest>=8,<10"]
 
