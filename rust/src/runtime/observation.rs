@@ -1,5 +1,5 @@
 use crate::{ObservatoryEvent, ObservatorySnapshot};
-use chrono::Utc;
+use chrono::{DateTime, Utc};
 use serde_json::{Value, json};
 use std::collections::VecDeque;
 
@@ -19,7 +19,14 @@ pub struct Observation {
     pub error: Option<String>,
 }
 impl Observation {
-    pub fn new(provider_id: &str, provider_name: &str, source: &str, thread: &Value) -> Self {
+    pub fn at(
+        provider_id: &str,
+        provider_name: &str,
+        source: &str,
+        thread: &Value,
+        now: DateTime<Utc>,
+        epoch: String,
+    ) -> Self {
         Self {
             provider_id: provider_id.into(),
             provider_name: provider_name.into(),
@@ -27,14 +34,11 @@ impl Observation {
             thread_id: thread["id"].as_str().unwrap_or_default().into(),
             title: thread["name"].as_str().unwrap_or("Agent session").into(),
             revision: 0,
-            epoch: Utc::now()
-                .timestamp_nanos_opt()
-                .unwrap_or_default()
-                .to_string(),
+            epoch,
             public_summary: None,
             summary: "Waiting for public session activity".into(),
             state: "waiting",
-            observed_at: Utc::now().to_rfc3339(),
+            observed_at: now.to_rfc3339(),
             events: VecDeque::new(),
             error: None,
         }

@@ -15,3 +15,6 @@ pub use voice::*;
 /// Optional in-process observation engine; no network, filesystem or account dependencies.
 #[cfg(feature = "runtime")]
 pub mod runtime;
+
+#[cfg(feature = "runtime")]
+mod adapters;
