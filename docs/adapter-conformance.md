@@ -38,23 +38,6 @@ one workflow or support every Miilo feature.
 
 ## First-provider mapping
 
-### Private Example Factory adapter
-
-| Source concept | Miilo concept |
-| --- | --- |
-| Card containing a plan and slices | Initiative |
-| Bounded card or build slice | Task |
-| Factory job/revision | Attempt |
-| Worker/runner/verifier/service | Actor |
-| Candidate bundle, diff, preview, build | Artifact |
-| Verification result or review | Evidence |
-| Attention metadata | Attention request |
-| Approve, reject, resume, guidance | Capability-gated action |
-| Factory state | `providerState` |
-
-Factory routing, prompts, policy implementation, credentials, network topology, and
-recovery internals remain private. The adapter exports only presentation-safe facts.
-
 ### Public Codex adapter
 
 | Source concept | Miilo concept |
@@ -75,7 +58,7 @@ through a deep link when supported.
 
 ## Required cross-provider proof
 
-The private Factory and public Codex adapters must pass the same Level 0–2 test suite.
+Independent provider adapters must pass the same Level 0–2 test suite.
 The combined view must prove that:
 
 - no presentation component switches on provider identity;

@@ -2,7 +2,7 @@
 
 This directory incubates the public, provider-neutral Miilo protocol before it
 moves to its own distributable repository. The protocol describes observable
-automated work and capability-gated actions. It contains no Example Factory types.
+automated work and capability-gated actions.
 
 ## Contracts
 
@@ -18,7 +18,7 @@ globally unique key. Normalized fields drive Miilo presentation. `providerState`
 preserves the exact source state for diagnostics.
 
 Providers may advertise `capabilities.speech`. Speech remains provider-owned:
-Example Lab, OpenAI, or another connected system can supply transcription,
+OpenAI or another connected system can supply transcription,
 synthesis, and complete voice turns without exposing internal model names or
 credentials to Miilo clients. Any action proposed during a voice turn still
 uses the normal action contract and confirmation policy.
@@ -41,6 +41,5 @@ Run from this directory:
 uv run python -m pytest -q
 ```
 
-The conformance suite validates both Example Factory and Codex fixtures against the
-same contracts. Example Factory fixture data is synthetic and reveals no private
-implementation details.
+The conformance suite validates synthetic factory and Codex fixtures against the
+same contracts. Fixtures contain no private implementation details.

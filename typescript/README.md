@@ -3,7 +3,7 @@
 Strict TypeScript declarations for Miilo Protocol v0.1 and provider adapters.
 
 This package is private during incubation. The intended publication boundary is
-Apache-2.0 after legal and product review. It contains no Example Factory implementation.
+Apache-2.0 after legal and product review.
 
 ```typescript
 import type { MiiloAdapter, ObservatorySnapshot } from "@miilo/adapter-sdk";
