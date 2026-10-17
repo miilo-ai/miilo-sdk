@@ -64,7 +64,7 @@ def decompress(codec: Codec, data: bytes, limits: Limits = Limits()) -> bytes:
         size = zstandard.frame_content_size(data)
         if size not in (zstandard.CONTENTSIZE_UNKNOWN, zstandard.CONTENTSIZE_ERROR) and size > limits.output_bytes:
             raise ValueError("Output limit exceeded")
-        result = zstandard.ZstdDecompressor(max_window_size=8192).decompress(
+        result = zstandard.ZstdDecompressor(max_window_size=8 * 1024 * 1024).decompress(
             data, max_output_size=max(limits.output_bytes, 1), allow_extra_data=False)
     else:
         raise ValueError("Unsupported codec")
