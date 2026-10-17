@@ -22,7 +22,12 @@ brotli = { version = "8", optional = true }
 zstd = { version = "0.13", optional = true }
 sha2 = { version = "0.10", optional = true }
 
+http = { version = "1", optional = true }
+tower-http = { version = "0.6", optional = true, features = ["compression-gzip", "compression-br", "compression-zstd"] }
+
 [features]
 default = []
 runtime = []
 compression = ["dep:flate2", "dep:brotli", "dep:zstd", "dep:sha2"]
+
+compression-http = ["dep:http", "dep:tower-http"]

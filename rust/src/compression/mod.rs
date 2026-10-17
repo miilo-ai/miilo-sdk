@@ -35,3 +35,6 @@ pub struct Manifest {
 pub mod bundle;
 #[cfg(feature = "compression")]
 pub mod codecs;
+
+#[cfg(feature = "compression-http")]
+pub mod http;
