@@ -1,7 +1,11 @@
-# Miilo Protocol v0.1
+<h1 align="center">Miilo Protocol v0.1</h1>
 
-This directory incubates the public, provider-neutral Miilo protocol before it
-moves to its own distributable repository. The protocol describes observable
+<p align="center">
+  <img alt="JSON Schema" src="https://img.shields.io/badge/JSON%20Schema-444444?style=flat-square&amp;logo=json&amp;logoColor=white" />
+</p>
+
+This directory defines the provider-neutral Miilo protocol and its conformance
+fixtures. The protocol describes observable
 automated work and capability-gated actions.
 
 ## Contracts

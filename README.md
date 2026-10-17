@@ -1,9 +1,18 @@
-# Miilo SDK
+<h1 align="center">Miilo SDK</h1>
+
+<p align="center">
+  <img alt="Rust" src="https://img.shields.io/badge/Rust-b7410e?style=flat-square&amp;logo=rust&amp;logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&amp;logo=typescript&amp;logoColor=white" />
+  <img alt="Python" src="https://img.shields.io/badge/Python-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" />
+  <img alt="JSON Schema" src="https://img.shields.io/badge/JSON%20Schema-444444?style=flat-square&amp;logo=json&amp;logoColor=white" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/miilo-ai/miilo-sdk/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/miilo-ai/miilo-sdk/actions/workflows/ci.yml/badge.svg" /></a>
+  <a href="LICENSE"><img alt="Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" /></a>
+</p>
 
 **One protocol for observing and safely controlling automated work.**
-
-[![CI](https://github.com/miilo-ai/miilo-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/miilo-ai/miilo-sdk/actions/workflows/ci.yml)
-[![Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 Miilo should understand a coding agent, private automation factory, CI pipeline,
 research service, or local model without owning any of them. This repository is
