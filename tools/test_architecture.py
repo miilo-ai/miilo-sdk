@@ -23,6 +23,11 @@ class DependencyRules(unittest.TestCase):
             (root / 'core.rs').write_text('// line\n' * 201)
             self.assertEqual(violations(root, policy), [])
 
+    def test_missing_core_files_cannot_turn_the_gate_green(self):
+        with tempfile.TemporaryDirectory() as directory:
+            policy = {'layers': [{'name': 'core', 'paths': ['core/*.rs']}]}
+            self.assertTrue(violations(Path(directory), policy))
+
 
 if __name__ == '__main__':
     unittest.main()

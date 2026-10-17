@@ -105,3 +105,10 @@ it does not invent root causes or execution authority.
 Run `make test` (including runtime tests) and `cargo clippy --manifest-path
 rust/Cargo.toml --all-features --all-targets -- -D warnings`. Candidate source is
 not an owner-approved release. Protocol remains 0.1; package version is 0.2.0.
+
+## Architecture checks
+
+The [engineering constitution](.specify/memory/constitution.md) defines the
+boundaries. Run `python3 tools/check_architecture.py` and
+`python3 tools/test_architecture.py`; CI qualification runs both. These are
+development checks, not runtime dependencies.

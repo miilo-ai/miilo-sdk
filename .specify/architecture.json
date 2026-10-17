@@ -11,7 +11,10 @@
         "\\bSystemTime\\b",
         "Utc::now\\(",
         "crate::(?:adapters|config|engine|transport)::",
-        "\\buse\\s+super::\\*"
+        "\\buse\\s+super::\\*",
+        "\\b(?:fs|env|process|thread)::",
+        "Uuid::new_v4\\(",
+        "Instant::now\\("
       ]
     }
   ],
