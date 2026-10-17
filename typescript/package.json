@@ -1,6 +1,6 @@
 {
   "name": "@miilo-ai/adapter-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Provider-neutral adapter interfaces for Miilo",
   "license": "Apache-2.0",
   "homepage": "https://miilo.tech",

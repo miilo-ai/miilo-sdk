@@ -24,7 +24,7 @@ behind the provider boundary.
 
 | Package | Directory | What it provides |
 | --- | --- | --- |
-| Rust | [`rust/`](rust/) | Typed contracts, adapter trait, async streams |
+| Rust | [`rust/`](rust/) | Typed contracts, adapter trait, async streams; opt-in in-process runtime |
 | Python | [`python/`](python/) | Pydantic contracts and adapter protocol |
 | TypeScript | [`typescript/`](typescript/) | Browser and server contracts and adapter interface |
 | JSON Schema | [`protocol/`](protocol/) | Language-neutral schemas, fixtures, and conformance tests |
@@ -84,3 +84,24 @@ Apache-2.0. The license does not grant rights to the Miilo name or marks.
 ## Release automation
 
 See [.github/RELEASING.md](.github/RELEASING.md) for private-repository rehearsals, manifest-driven tags, credential-missing skips and activation. Publication stays disabled until explicitly requested/configured.
+
+## Standalone runtime (candidate 0.2)
+
+Enable Rust feature `runtime` for `ObservatoryRuntime`, validated provider-scoped
+ingestion, bounded resumable event history and deterministic grounded explanations.
+Default imports remain contract-only. The runtime has no listener, filesystem,
+account, Axum or CE dependency. Hosts supply an epoch and observation clock values.
+Linux/macOS local discovery, file access and continuous collection live in the
+separate public CLI repository, not this package. Python/TypeScript expose the
+same protocol contracts; they do not embed another observation runtime.
+
+Register providers, replace their validated snapshots, then read an aggregate or
+events after its opaque cursor. Identical ingestions emit no duplicate event.
+Foreign, future or expired cursors require a fresh snapshot. A new host process
+must choose a new epoch. Disconnect removes only that provider's records.
+`runtime::explain` cites supplied evidence and explicitly reports missing evidence;
+it does not invent root causes or execution authority.
+
+Run `make test` (including runtime tests) and `cargo clippy --manifest-path
+rust/Cargo.toml --all-features --all-targets -- -D warnings`. Candidate source is
+not an owner-approved release. Protocol remains 0.1; package version is 0.2.0.

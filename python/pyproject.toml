@@ -1,6 +1,6 @@
 [project]
 name = "miilo-adapter-sdk"
-version = "0.1.0"
+version = "0.2.0"
 description = "Typed Python contracts for the Miilo adapter protocol"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2.12,<3"]

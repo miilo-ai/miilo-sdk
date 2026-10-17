@@ -9,7 +9,7 @@ test-python:
 	cd python && uv run pytest
 
 test-rust:
-	cargo test --manifest-path rust/Cargo.toml
+	cargo test --manifest-path rust/Cargo.toml --all-features
 
 test-typescript:
 	cd typescript && npm ci --ignore-scripts && npm test
