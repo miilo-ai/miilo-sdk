@@ -25,8 +25,8 @@ Changing target starts a new conversation; ambiguous references ask for clarity.
 Each turn refreshes observations and rejects stale selected revisions before
 inference. Global turns disclose partial/unavailable sources and bounded context.
 Only normalized titles/summaries/status and linked evidence summaries are sent;
-exclude raw transcripts, changes, credentials, filesystem paths and extension
-blobs. These summaries can still be sensitive: explicit endpoint/context consent
+exclude raw transcripts, change contents, credentials, dedicated path/URI fields
+and extension blobs. These summaries can still be sensitive: explicit endpoint/context consent
 is required. No implicit discovery or additional enrollment. No durable chat log.
 
 Endpoint configuration: OpenAI-compatible base URL ending in /v1, model,
@@ -42,8 +42,8 @@ No Jev, RFDT or policy-library dependency is required for this milestone.
 
 ## Milestones and evidence
 
-- [ ] M1: SDK request/context/reference/stream contracts and negative fixtures.
-- [ ] M2: shared helper config + fresh-context application + bounded streaming
+- [x] M1: SDK request/context/reference/stream contracts and negative fixtures.
+- [x] M2: shared helper config + fresh-context application + bounded streaming
       adapter; fake-port and loopback HTTP tests; terminal NDJSON smoke.
 - [ ] M3: shared OWL chat panel, setup access, session-only conversation, streamed
       text, supporting references, cancel/retry and selected workflow retention.
@@ -63,3 +63,10 @@ and evidence, retain target, recover from outage, cancel without late output and
 observe subsequent state updates. Stale/ambiguous targets cannot silently change.
 All changed contract/core/adapter regressions and architecture gates pass; native
 versions/screenshots and live inference evidence recorded. Release gates remain.
+
+## First checkpoint evidence
+
+SDK contracts passed Rust, Python, TypeScript and JSON Schema checks. Helper core,
+HTTP/SSE and compiled-command tests use fake or loopback models, including a
+private local observation file with CE absent. This is not actual Gemma inference.
+Graphical chat (M3), native acceptance (M4) and live model proof (M5) remain pending.
