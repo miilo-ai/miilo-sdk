@@ -31,3 +31,11 @@ runtime = []
 compression = ["dep:flate2", "dep:brotli", "dep:zstd", "dep:sha2"]
 
 compression-http = ["dep:http", "dep:tower-http"]
+
+[[example]]
+name = "compression-bench"
+required-features = ["compression"]
+
+[[example]]
+name = "compression-interop"
+required-features = ["compression"]

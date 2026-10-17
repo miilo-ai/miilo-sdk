@@ -112,3 +112,9 @@ The [engineering constitution](.specify/memory/constitution.md) defines the
 boundaries. Run `python3 tools/check_architecture.py` and
 `python3 tools/test_architecture.py`; CI qualification runs both. These are
 development checks, not runtime dependencies.
+
+Lossless artifact support is optional: Rust `compression` enables gzip/Brotli/zstd
+and verified bundles; `compression-http` enables conservative negotiated JSON
+response compression. Python uses the `compression` extra. TypeScript provides
+host-neutral contracts. See [compression](docs/compression.md) for byte limits,
+streaming versus bundle memory behavior, and the versioned portable format.
