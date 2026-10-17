@@ -4,6 +4,7 @@ mod chat;
 mod common;
 mod observation;
 mod provider;
+mod user_configuration;
 mod voice;
 
 pub use action::*;
@@ -12,6 +13,7 @@ pub use chat::{ChatEvent, ChatFocus, ChatMessage, ChatReference, ChatRequest, Ch
 pub use common::*;
 pub use observation::*;
 pub use provider::*;
+pub use user_configuration::UserConfiguration;
 pub use voice::*;
 
 /// Optional in-process observation engine; no network, filesystem or account dependencies.

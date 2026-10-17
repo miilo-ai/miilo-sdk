@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Miilo user configuration version 1",
+  "description": "User-owned ~/.miilo/config.json activation manifest. Never discovered from a project directory.",
+  "type": "object",
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "localConfigFile": {
+      "type": "string",
+      "pattern": "^/",
+      "description": "Absolute native local observation configuration path; preserves existing collector enrollment and service configuration."
+    }
+  },
+  "additionalProperties": true
+}
