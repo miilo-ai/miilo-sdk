@@ -2,7 +2,7 @@
 
 Miilo's shared user directory is `~/.miilo/`, overridden by an absolute
 `MIILO_HOME`. It belongs to Miilo across clients, independently of Omarchy.
-The native candidate uses existing JSON formats; no TOML conversion is needed.
+The native runtime uses existing JSON formats; no TOML conversion is needed.
 The protocol schema is `protocol/schemas/user-configuration.schema.json`.
 The Rust `UserConfiguration` contract preserves unknown settings and validates
 the version and native path. Test it with

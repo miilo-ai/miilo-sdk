@@ -94,7 +94,7 @@ Apache-2.0. The license does not grant rights to the Miilo name or marks.
 
 See [.github/RELEASING.md](.github/RELEASING.md) for private-repository rehearsals, manifest-driven tags, credential-missing skips and activation. Publication stays disabled until explicitly requested/configured.
 
-## Standalone runtime (candidate 0.2)
+## Standalone runtime
 
 Enable Rust feature `runtime` for `ObservatoryRuntime`, validated provider-scoped
 ingestion, bounded resumable event history and deterministic grounded explanations.
@@ -112,8 +112,7 @@ must choose a new epoch. Disconnect removes only that provider's records.
 it does not invent root causes or execution authority.
 
 Run `make test` (including runtime tests) and `cargo clippy --manifest-path
-rust/Cargo.toml --all-features --all-targets -- -D warnings`. Candidate source is
-not an owner-approved release. Protocol remains 0.1; package version is 0.2.0.
+rust/Cargo.toml --all-features --all-targets -- -D warnings`. Protocol remains 0.1; package version is 0.2.0.
 
 ## Architecture checks
 
