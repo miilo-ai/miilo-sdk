@@ -1,5 +1,8 @@
 # Runtime extraction evidence — 2026-10-16/17
 
+> Historical validation record. Results apply only to the revision and environment recorded below; they do not describe current release readiness.
+
+
 Host: macOS arm64. `make test`: protocol 17, Python 6, Rust fixtures 5 and
 runtime regressions 4 passed; TypeScript type/conformance check passed.
 Rust all-feature/all-target clippy passed with warnings denied.

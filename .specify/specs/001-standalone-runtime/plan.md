@@ -1,5 +1,8 @@
 # Candidate implementation and handoff
 
+> Retained design record. Unchecked historical milestones are not a current release checklist. See docs/release-status.md for current scope and outstanding validation.
+
+
 Candidate: 0.2.0. Responsibility: Rust runtime feature, protocol and three language contracts.
 
 ## Shared boundaries
