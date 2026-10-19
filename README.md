@@ -126,3 +126,5 @@ and verified bundles; `compression-http` enables conservative negotiated JSON
 response compression. Python uses the `compression` extra. TypeScript provides
 host-neutral contracts. See [compression](docs/compression.md) for byte limits,
 streaming versus bundle memory behavior, and the versioned portable format.
+
+Release scope and remaining validation: [release status](docs/release-status.md).
