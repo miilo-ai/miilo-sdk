@@ -1,6 +1,11 @@
 {
   "layers": [
     {
+      "name": "telemetry-core",
+      "paths": ["rust/src/telemetry/domain.rs", "rust/src/telemetry/mapping.rs"],
+      "forbid": ["\\b(?:opentelemetry|opentelemetry_sdk|axum|reqwest|sqlx|tokio)::", "std::(?:fs|net|process|thread)", "\\bSystemTime\\b", "Utc::now\\(", "std::env", "super::otel"]
+    },
+    {
       "name": "runtime",
       "paths": [
         "rust/src/runtime/**/*.rs"

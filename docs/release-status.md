@@ -13,6 +13,12 @@ Local observation is read-only; provider actions require a separately connected 
 
 ## Outstanding work
 
+- The optional Rust GenAI tracing module is a source candidate, not part of the
+  already-published 0.2.0 artifacts. The source candidate is version 0.3.0.
+  Its in-memory export tests do not establish
+  live OTLP collector delivery or installed voice/chat instrumentation. See
+  [GenAI tracing](genai-telemetry.md) for opt-in, privacy and host integration.
+
 - Voice capture/playback is deferred. The helper voice command deliberately returns
   `not_implemented`; endpoint configuration is not microphone or streaming-audio support.
 - Full conversational chat-panel acceptance is distinct from the working model-backed

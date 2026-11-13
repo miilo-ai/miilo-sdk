@@ -21,8 +21,8 @@ from pathlib import Path
 root=Path(os.environ['SDK_CONSUMER_ROOT'])
 source=root/('miilo-adapter-sdk-'+os.environ['SDK_CONSUMER_VERSION'])
 consumer=root/'consumer';(consumer/'src').mkdir(parents=True)
-(consumer/'Cargo.toml').write_text('[package]\nname="miilo-runtime-consumer"\nversion="0.0.0"\nedition="2024"\n[dependencies]\nmiilo-adapter-sdk={path='+json.dumps(str(source))+',features=["runtime"]}\n')
-(consumer/'src/main.rs').write_text('fn main(){let runtime=miilo_adapter_sdk::runtime::ObservatoryRuntime::new("installed-consumer",8).unwrap();assert_eq!(runtime.cursor(),"installed-consumer:0");}\n')
+(consumer/'Cargo.toml').write_text('[package]\nname="miilo-runtime-consumer"\nversion="0.0.0"\nedition="2024"\n[dependencies]\nmiilo-adapter-sdk={path='+json.dumps(str(source))+',features=["runtime","telemetry"]}\n')
+(consumer/'src/main.rs').write_text('use miilo_adapter_sdk::telemetry::{GenAiTelemetry,MappedSpan,SpanSink};\nstruct Sink;\nimpl SpanSink for Sink{type Context=();fn record(&self,_:MappedSpan,_:&()){}}\nfn main(){let runtime=miilo_adapter_sdk::runtime::ObservatoryRuntime::new("installed-consumer",8).unwrap();assert_eq!(runtime.cursor(),"installed-consumer:0");let mut telemetry=GenAiTelemetry::new(Sink);telemetry.set_enabled(true);}\n')
 PY
 cargo run --manifest-path "$scratch/rust/consumer/Cargo.toml" --quiet -j2
-echo 'Installed Rust runtime, wheel and npm SDK consumers passed.'
+echo 'Installed Rust runtime/telemetry, wheel and npm SDK consumers passed.'

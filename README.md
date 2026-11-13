@@ -132,3 +132,7 @@ host-neutral contracts. See [compression](docs/compression.md) for byte limits,
 streaming versus bundle memory behavior, and the versioned portable format.
 
 Release scope and remaining validation: [release status](docs/release-status.md).
+
+Optional Rust [GenAI tracing](docs/genai-telemetry.md) emits explicit operation
+metadata through a host-owned OpenTelemetry tracer. It is off by default and
+does not collect prompts, transcripts or audio.
