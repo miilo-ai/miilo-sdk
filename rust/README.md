@@ -15,3 +15,10 @@ miilo-adapter-sdk = "0.1"
 
 Implement `MiiloAdapter` to expose a provider without moving its credentials or
 orchestration into Miilo.
+
+The optional `telemetry` feature provides `telemetry::GenAiTelemetry` and
+`telemetry::OpenTelemetrySink` for explicit, content-free GenAI operation records.
+Tracing remains disabled until enabled by the host. The host supplies its tracer
+and owns sampling/export configuration; this crate never installs a global
+provider or collects prompts, audio or transcripts. See the repository's
+[tracing guide](https://github.com/miilo-ai/miilo-sdk/blob/main/docs/genai-telemetry.md).

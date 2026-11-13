@@ -11,6 +11,11 @@ test-python:
 test-rust:
 	cargo test --manifest-path rust/Cargo.toml --all-features
 
+.PHONY: test-telemetry
+test-telemetry:
+	cargo test --locked --manifest-path rust/Cargo.toml --features telemetry --test telemetry_export --test telemetry_validation --test telemetry_context
+	cargo clippy --locked --manifest-path rust/Cargo.toml --all-features --all-targets -- -D warnings
+
 test-typescript:
 	cd typescript && npm ci --ignore-scripts && npm test
 

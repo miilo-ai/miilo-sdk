@@ -25,3 +25,7 @@ mod adapters;
 
 /// Lossless bundle contracts and optional I/O codec adapters.
 pub mod compression;
+
+/// Opt-in, content-free GenAI operation tracing through a caller-owned sink.
+#[cfg(feature = "telemetry")]
+pub mod telemetry;
