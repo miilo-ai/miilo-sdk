@@ -29,6 +29,10 @@ It gives provider authors a small, versioned vocabulary for:
 Credentials, orchestration, prompts, model locations, and proprietary logic stay
 behind the provider boundary.
 
+See [how observation and explanations work](docs/observation-and-explanations.md)
+for local capture boundaries, concurrent sessions, and the distinction between
+observed activity and an agent's decision rationale.
+
 ## Pick your language
 
 | Package | Directory | What it provides |
