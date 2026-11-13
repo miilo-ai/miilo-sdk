@@ -46,7 +46,8 @@ jobs:
         toolchain: 1.96.1
         components: rustfmt, clippy
     - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e
-    - run: make test test-release
+    - name: Package from a fresh checkout before tests can install dependencies
+      run: make test-release test
     - run: bash .github/release-tools/check-sdk-consumers.sh
     - run: echo "ready=$READY" >> "$GITHUB_OUTPUT"
       id: result

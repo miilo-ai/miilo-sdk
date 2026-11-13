@@ -4,6 +4,11 @@ Current published package: 0.2.0 (reviewed October 18, 2026).
 For available assets and subsequent versions, use GitHub Releases and the package manifests.
 Documentation-only changes do not require a package version bump.
 
+The v0.3.0 tag was created, but GitHub release packaging failed before any assets
+were published because the fresh job had not installed TypeScript dependencies.
+The 0.3.1 candidate installs locked build dependencies and uses the same packaging
+script for qualification and publication. The existing v0.3.0 tag is unchanged.
+
 ## Supported scope
 
 Local observation supports Codex, Claude Code, Cursor, OpenCode, Devin CLI,
@@ -14,7 +19,7 @@ Local observation is read-only; provider actions require a separately connected 
 ## Outstanding work
 
 - The optional Rust GenAI tracing module is a source candidate, not part of the
-  already-published 0.2.0 artifacts. The source candidate is version 0.3.0.
+  already-published 0.2.0 artifacts. The source candidate is version 0.3.1.
   Its in-memory export tests do not establish
   live OTLP collector delivery or installed voice/chat instrumentation. See
   [GenAI tracing](genai-telemetry.md) for opt-in, privacy and host integration.
