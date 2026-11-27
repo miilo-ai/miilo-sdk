@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": {
+    "connectionId": "issue-source",
+    "externalId": "TASK-42",
+    "revision": "source-r3"
+  },
+  "decision": "pending",
+  "execution": "not_started",
+  "synchronization": "not_required",
+  "workflowId": "code-review",
+  "jobId": null,
+  "deferredUntil": null
+}
