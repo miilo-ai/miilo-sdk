@@ -70,7 +70,7 @@ impl IntakeDetails {
             &self.workflow_id,
         ]
         .iter()
-        .any(|v| v.trim().is_empty() || v.len() > 512)
+        .any(|v| v.trim().is_empty() || v.chars().count() > 512)
         {
             return Err("missing or oversized intake identity");
         }
