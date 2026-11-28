@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Miilo Intake Details",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "source",
+    "decision",
+    "execution",
+    "synchronization",
+    "workflowId",
+    "jobId",
+    "deferredUntil"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connectionId",
+        "externalId",
+        "revision"
+      ],
+      "properties": {
+        "connectionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "\\S"
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "\\S"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "decision": {
+      "enum": [
+        "pending",
+        "accepted",
+        "deferred",
+        "dismissed"
+      ]
+    },
+    "execution": {
+      "enum": [
+        "not_started",
+        "queued",
+        "running",
+        "checking",
+        "ready_for_review",
+        "completed",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    "synchronization": {
+      "enum": [
+        "not_required",
+        "pending",
+        "synchronized",
+        "failed"
+      ]
+    },
+    "workflowId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "\\S"
+    },
+    "jobId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deferredUntil": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

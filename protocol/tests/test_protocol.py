@@ -186,3 +186,14 @@ def test_chat_contract_rejects_system_history_and_missing_error():
     assert validation_errors("chat-request.schema.json", value)
     validate("chat-event.schema.json", {"protocolVersion":"0.1", "requestId":"a", "sequence":0, "type":"done"})
     assert validation_errors("chat-event.schema.json", {"protocolVersion":"0.1", "requestId":"a", "sequence":0, "type":"error"})
+
+
+def test_intake_metadata_is_additive_and_versioned():
+    details = load(FIXTURES / "intake-details.json")
+    validate("intake-details.schema.json", details)
+    snapshot = load(FIXTURES / "factory.snapshot.json")
+    snapshot["workItems"][0].setdefault("extensions", {})["io.miilo.intake"] = details
+    validate("observatory-snapshot.schema.json", snapshot)
+    details["version"] = 2
+    with pytest.raises(AssertionError):
+        validate("intake-details.schema.json", details)

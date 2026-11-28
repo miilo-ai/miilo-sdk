@@ -2,6 +2,7 @@ mod action;
 mod adapter;
 mod chat;
 mod common;
+pub mod intake;
 mod observation;
 mod provider;
 mod user_configuration;
